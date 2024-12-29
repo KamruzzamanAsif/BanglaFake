@@ -38,7 +38,7 @@ To train the model with your own data follow the given procedure:
 If you use BanglaFake in your research, please cite:
 
 ```
-@article{banglafake2023,
+@article{banglafake2024,
   title={BanglaFake: Constructing and Evaluating a Specialized Bengali Deepfake Audio Dataset},
   author={[Istiaq Ahmed Fahad, Kamruzzaman Asif, Sifat Sikder]},
   year={2024}
