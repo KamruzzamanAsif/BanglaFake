@@ -1,178 +1,372 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BanglaFake</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="BanglaFake: A research project on detecting deepfake audio in the Bengali language." />
+    <meta name="keywords" content="deepfake, audio, Bengali, Bangla, machine learning, research" />
+    <meta name="author" content="BanglaFake Research Team" />
+    <title>BanglaFake - Deepfake Audio Detection</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f8f9fa;
+            color: #333;
         }
+
         header {
             background-color: #4CAF50;
             color: white;
             text-align: center;
-            padding: 1rem 0;
+            padding: 2rem 1rem;
         }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
         main {
-            padding: 2rem;
-            text-align: justify;
-            line-height: 1.8;
-            color: #333;
+            padding: 2rem 1rem;
+            max-width: 1000px;
+            margin: auto;
         }
+
         section {
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
+
         .section-header {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-size: 1.8rem;
             color: #4CAF50;
+            margin-bottom: 1rem;
         }
+
+        .audio-sample-section-header {
+            font-size: 1.2rem;
+            color: #4CAF50;
+            margin-bottom: 0.5rem;
+        }
+
         .audio-section {
             background: white;
             padding: 1.5rem;
             margin: 1rem 0;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+            border-radius: 8px;
+            transition: box-shadow 0.3s ease;
         }
+
+        .audio-section:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
         .audio-container {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 0.5rem;
             margin-bottom: 1rem;
         }
+
         .audio-container p {
             margin: 0;
-            flex: 1;
+            font-weight: 600;
         }
+
         .audio-container audio {
-            flex: 1;
-            margin-left: 1rem;
+            width: 100%;
         }
+
+        @media (min-width: 768px) {
+            .audio-container {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .audio-container audio {
+                margin-left: 1rem;
+                flex: 1;
+            }
+        }
+
+        .links a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        .links {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .link-button {
+            display: inline-block;
+            padding: 0.7rem 1.2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .link-button.github {
+            background-color: #24292e;
+        }
+
+        .link-button.dataset {
+            background-color: #4646c0;
+        }
+
+        .link-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .link-button:active {
+            transform: scale(0.97);
+        }
+
+
         footer {
-            text-align: center;
-            padding: 1rem;
             background-color: #333;
             color: white;
-            margin-top: 2rem;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 3rem;
+        }
+
+        footer a {
+            color: #4CAF50;
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <header>
         <h1>BanglaFake</h1>
+        <p>Constructing and Evaluating a Specialized Bengali Deepfake
+Audio Dataset</p>
     </header>
+
+    <nav>
+        <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#samples">Audio Samples</a></li>
+            <li><a href="#methodology">Methodology</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
     <main>
-        <!-- Section 1 -->
-        <section>
-            <h2 class="section-header">Sample 1: বিশ্ববিদ্যালয় ও কলেজের শিক্ষকগণ এই ধরণের অনুষ্ঠানগুলোতে এক সাথে কাজ করতে পারে।</h2>
-            <div class="audio-section">
-                <div class="audio-container">
-                    <p><strong>Ground Truth:</strong> বিশ্ববিদ্যালয় ও কলেজের শিক্ষকগণ এই ধরণের...</p>
-                    <audio controls>
-                        <source src="audio\real_06359.wav" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                </div>
-                <div class="audio-container">
-                    <p><strong>Deepfake:</strong> বিশ্ববিদ্যালয় ও কলেজের শিক্ষকগণ এই ধরণের...</p>
-                    <audio controls>
-                        <source src="audio\fake_06359.wav" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                </div>
+        <section id="overview">
+            <h2 class="section-header">Project Overview</h2>
+            <p>
+                With the increasing misuse of AI-generated speech, especially in the form of highly realistic deepfake audio, the need for effective detection mechanisms has become urgent. While research in high-resource languages like English and Chinese has progressed, low-resource languages such as Bengali lack the necessary datasets to support meaningful detection efforts.
+            </p>
+            <p>
+                To bridge this gap, we present <strong>BanglaFake</strong>, the first publicly available large monospeaker Bengali deepfake audio dataset, designed specifically for training and evaluating deepfake detection models. The dataset comprises <strong>12,260 real</strong> and <strong>13,260 synthetic</strong> audio clips, each 6–7 seconds long. Real speech samples were collected from the <em>SUST TTS corpus</em> and <em>Mozilla Common Voice</em>, while fake samples were generated using a <em>VITS-based TTS model</em> trained from scratch on Bengali phonemes.
+            </p>
+            <p>
+                To assess quality, we conducted a <strong>Mean Opinion Score (MOS)</strong> evaluation with 30 native Bengali speakers, achieving scores of <strong>3.40 for naturalness</strong> and <strong>4.01 for intelligibility</strong>. We further employed <strong>t-SNE visualization</strong> on <em>MFCC features</em> to explore the distribution of real versus synthetic audio, emphasizing the realism of the deepfake audios.
+            </p>
+            <p>
+                <strong>BanglaFake</strong> provides a critical resource to advance deepfake detection research for Bengali and serves as a foundational benchmark for future TTS and audio forensics studies in low-resource language settings like Bangla.
+            </p>
+            <div class="links">
+                <a class="link-button github" href="https://github.com/KamruzzamanAsif/BanglaFake" target="_blank">
+                    🐙 View on GitHub
+                </a>
+                <a class="link-button dataset" href="https://huggingface.co/datasets/sifat1221/banglaFake" target="_blank">
+                    📁 Download Dataset
+                </a>
             </div>
         </section>
 
-        <!-- Section 2 -->
-        <section>
-            <h2 class="section-header">Sample 2: সমর্থকদের কাছে ইমরান খান রাজনীতিবিদের পাশাপাশি একজন মানবপ্রেমিকও।</h2>
-            <div class="audio-section">
-                <div class="audio-container">
-                    <p><strong>Ground Truth:</strong> সমর্থকদের কাছে ইমরান খান রাজনীতিবিদের...</p>
-                    <audio controls>
-                        <source src="audio\real_16070.wav" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
+
+        <section id="samples">
+            <h2 class="section-header">Audio Samples</h2>
+
+            <!-- Sample 1 -->
+            <section>
+                <h3 class="audio-sample-section-header">Sample 1: বিশ্ববিদ্যালয় ও কলেজের শিক্ষকগণ এই ধরণের অনুষ্ঠানগুলোতে এক সাথে কাজ করতে পারে।</h3>
+                <div class="audio-section">
+                    <div class="audio-container">
+                        <p>🎧 <strong>Ground Truth:</strong></p>
+                        <audio controls>
+                            <source src="audio/real_06359.wav" type="audio/mpeg" />
+                        </audio>
+                    </div>
+                    <div class="audio-container">
+                        <p>🌀 <strong>Deepfake:</strong></p>
+                        <audio controls>
+                            <source src="audio/fake_06359.wav" type="audio/mpeg" />
+                        </audio>
+                    </div>
                 </div>
-                <div class="audio-container">
-                    <p><strong>Deepfake:</strong> সমর্থকদের কাছে ইমরান খান রাজনীতিবিদের...</p>
-                    <audio controls>
-                        <source src="audio\fake_16070.wav" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
+            </section>
+
+            <!-- Sample 2 -->
+            <section>
+                <h3 class="audio-sample-section-header">Sample 2: সমর্থকদের কাছে ইমরান খান রাজনীতিবিদের পাশাপাশি একজন মানবপ্রেমিকও।</h3>
+                <div class="audio-section">
+                    <div class="audio-container">
+                        <p>🎧 <strong>Ground Truth:</strong></p>
+                        <audio controls>
+                            <source src="audio/real_16070.wav" type="audio/mpeg" />
+                        </audio>
+                    </div>
+                    <div class="audio-container">
+                        <p>🌀 <strong>Deepfake:</strong></p>
+                        <audio controls>
+                            <source src="audio/fake_16070.wav" type="audio/mpeg" />
+                        </audio>
+                    </div>
                 </div>
-            </div>
+            </section>
+
+            <!-- Sample 3 -->
+            <section>
+                <h3 class="audio-sample-section-header">Sample 3: অথচ এখানে চাঁদটি কী ভয়ঙ্কর অহঙ্কারীর মতো পুরো আকাশটি উজ্জ্বল করে রেখেছে।</h3>
+                <div class="audio-section">
+                    <div class="audio-container">
+                        <p>🎧 <strong>Ground Truth:</strong></p>
+                        <audio controls>
+                            <source src="audio/real_13568.wav" type="audio/mpeg" />
+                        </audio>
+                    </div>
+                    <div class="audio-container">
+                        <p>🌀 <strong>Deepfake:</strong></p>
+                        <audio controls>
+                            <source src="audio/fake_13568.wav" type="audio/mpeg" />
+                        </audio>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sample 4 -->
+            <section>
+                <h3 class="audio-sample-section-header">Sample 4: তাদের দেশের ওপর অবরোধ আরোপ করা হয়েছে।</h3>
+                <div class="audio-section">
+                    <div class="audio-container">
+                        <p>🎧 <strong>Ground Truth:</strong></p>
+                        <audio controls>
+                            <source src="audio/real_14709.wav" type="audio/mpeg" />
+                        </audio>
+                    </div>
+                    <div class="audio-container">
+                        <p>🌀 <strong>Deepfake:</strong></p>
+                        <audio controls>
+                            <source src="audio/fake_14709.wav" type="audio/mpeg" />
+                        </audio>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sample 5 -->
+            <section>
+                <h3 class="audio-sample-section-header">Sample 5: মুনীর চৌধুরী একজন বাংলাদেশী শিক্ষাবিদ, নাট্যকার, সাহিত্য সমালোচক, ভাষাবিজ্ঞানী এবং শহীদ বুদ্ধিজীবী।</h3>
+                <div class="audio-section">
+                    <div class="audio-container">
+                        <p>🎧 <strong>Ground Truth:</strong></p>
+                        <audio controls>
+                            <source src="audio/real_01173.wav" type="audio/mpeg" />
+                        </audio>
+                    </div>
+                    <div class="audio-container">
+                        <p>🌀 <strong>Deepfake:</strong></p>
+                        <audio controls>
+                            <source src="audio/fake_01173.wav" type="audio/mpeg" />
+                        </audio>
+                    </div>
+                </div>
+            </section>
         </section>
 
-        <!-- Section 3 -->
-        <section>
-            <h2 class="section-header">Sample 3: অথচ এখানে চাঁদটি কী ভয়ঙ্কর অহঙ্কারীর মতো পুরো আকাশটি উজ্জ্বল করে রেখেছে।</h2>
-            <div class="audio-section">
-                <div class="audio-container">
-                    <p><strong>Ground Truth:</strong> অথচ এখানে চাঁদটি কী ভয়ঙ্কর অহঙ্কারীর মতো...</p>
-                    <audio controls>
-                        <source src="audio\real_13568.wav" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                </div>
-                <div class="audio-container">
-                    <p><strong>Deepfake:</strong> অথচ এখানে চাঁদটি কী ভয়ঙ্কর অহঙ্কারীর মতো...</p>
-                    <audio controls>
-                        <source src="audio\fake_13568.wav" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                </div>
-            </div>
+        <section id="methodology">
+            <h2 class="section-header">Methodology</h2>
+            <p>
+                We trained a VITS-based Bengali TTS model from scratch using phoneme-level inputs to generate synthetic audio. Real and fake samples were analyzed using MFCC features and visualized with t-SNE to examine distribution patterns. To evaluate realism, we conducted a Mean Opinion Score (MOS) test with 30 native speakers. All experiments, preprocessing steps, and evaluation code are available in our <a href="https://github.com/KamruzzamanAsif/BanglaFake" target="_blank">GitHub repository</a>.
+            </p>
         </section>
 
-        <!-- Section 4 -->
-        <section>
-            <h2 class="section-header">Sample 4: তাদের দেশের ওপর অবরোধ আরোপ করা হয়েছে।</h2>
-            <div class="audio-section">
-                <div class="audio-container">
-                    <p><strong>Ground Truth:</strong> তাদের দেশের ওপর অবরোধ আরোপ...</p>
-                    <audio controls>
-                        <source src="audio\real_14709.wav" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                </div>
-                <div class="audio-container">
-                    <p><strong>Deepfake:</strong> তাদের দেশের ওপর অবরোধ আরোপ...</p>
-                    <audio controls>
-                        <source src="audio\fake_14709.wav" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                </div>
-            </div>
+        <section id="team">
+            <h2 class="section-header">Research Team</h2>
+            <p>
+                The BanglaFake project is developed by a group of machine learning enthusiast students from <strong>IIT, University of Dhaka</strong>. As part of our academic journey, we explored the challenges of deepfake audio detection in Bengali. We are open to feedback, collaboration, and guidance from the broader research and open-source communities.
+            </p>
         </section>
 
-        <!-- Section 5 -->
-        <section>
-            <h2 class="section-header">Sample 5: মুনীর চৌধুরী একজন বাংলাদেশী শিক্ষাবিদ, নাট্যকার, সাহিত্য সমালোচক, ভাষাবিজ্ঞানী এবং শহীদ বুদ্ধিজীবী।</h2>
-            <div class="audio-section">
-                <div class="audio-container">
-                    <p><strong>Ground Truth:</strong> মুনীর চৌধুরী একজন বাংলাদেশী শিক্ষাবিদ, নাট্যকার, সাহিত্য...</p>
-                    <audio controls>
-                        <source src="audio\real_01173.wav" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                </div>
-                <div class="audio-container">
-                    <p><strong>Deepfake:</strong> মুনীর চৌধুরী একজন বাংলাদেশী শিক্ষাবিদ, নাট্যকার, সাহিত্য...</p>
-                    <audio controls>
-                        <source src="audio\fake_01173.wav" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                </div>
-            </div>
+        <section id="contact">
+            <h2 class="section-header">Contact Us</h2>
+            <p>
+                For questions, feedback, or collaboration inquiries, reach out via email: <br>
+                <a href="mailto:bsse1204@iit.du.ac.bd">bsse1204@iit.du.ac.bd</a> <br>
+                <a href="mailto:bsse1217@iit.du.ac.bd">bsse1217@iit.du.ac.bd</a> <br>
+                <a href="mailto:bsse1221@iit.du.ac.bd">bsse1221@iit.du.ac.bd</a>
+            </p>
         </section>
     </main>
+
     <footer>
-        © 2024 BanglaFake. All Rights Reserved.
+        <p>© 2025 BanglaFake. All Rights Reserved.</p>
+        <p>
+            <a href="https://github.com/KamruzzamanAsif/BanglaFake" target="_blank">GitHub</a> |
+            <a href="https://huggingface.co/datasets/sifat1221/banglaFake" target="_blank">Dataset</a>
+        </p>
     </footer>
 </body>
 </html>
